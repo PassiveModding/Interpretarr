@@ -1,5 +1,8 @@
 version: "3.8"
-
+####################
+# Note: this is a development sample yaml for running the stack locally. Ideally you would also run prowlarr behind a vpn or configure it to use a proxy.
+# This file does not include the Interpretarr container as that is run separately during debugging
+####################
 services:
   gluetun:
     container_name: gluetun
@@ -9,18 +12,15 @@ services:
     cap_add:
       - NET_ADMIN
     environment:
-    # Check gluetun wiki for providers
+      # Check gluetun wiki for providers
       - VPN_SERVICE_PROVIDER=          
       - OPENVPN_USER=
       - OPENVPN_PASSWORD=
     ports:
-      # qbit
       - "8080:8080"
-      # prowlarr
       - "9696:9696"
-      # sonarr
       - "8989:8989"
-      # interpretarr
+      # note internally, interpretarr uses port 80, but we map it to 5000 here so clicking on links in the UI may send you to port 80 instead of 5000
       - "5000:5000"
   qbittorrent:
     image: lscr.io/linuxserver/qbittorrent
@@ -42,9 +42,3 @@ services:
       - ./compose/media:/media
     network_mode: service:gluetun
     depends_on: [gluetun]
-  interpretarr:
-    build: .
-    env_file:
-      - .env
-    network_mode: service:gluetun
-    depends_on: [prowlarr, sonarr, qbittorrent, gluetun]

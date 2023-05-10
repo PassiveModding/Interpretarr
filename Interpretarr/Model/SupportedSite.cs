@@ -2,9 +2,8 @@
 {
     public enum SupportedSite
     {
-        // 1337x.to
-        x1337xTo,
         // torrentleech.org
         TorrentLeech,
+        _1337xTo,
     }
 }

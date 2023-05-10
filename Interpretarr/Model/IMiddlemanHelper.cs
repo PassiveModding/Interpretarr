@@ -2,12 +2,26 @@
 {
     public interface IMiddlemanHelper
     {
-        SupportedSite SupportedSite { get; }
+        SupportedSite[] SupportedSites { get; }
 
-        string HandleResponse(string path, string responseContent);
+        // For parsing sonarr queries into a format that can be used by the indexer
 
-        bool HandleRequest(string path, out string updatedPath);
+        Task<FormatResult> FormatKeywordsAsync(string keywords);
 
-        bool ParseReleaseTitle(string releaseTitle, out string updatedTitle);
+        // For parsing the release title into a format that can be used by sonarr
+
+        Task<FormatResult> FormatReleaseTitleAsync(string releaseTitle);
+    }
+
+    public class FormatResult
+    {
+        public FormatResult(bool success, string? result)
+        {
+            Success = success;
+            Result = result;
+        }
+
+        public bool Success { get; set; }
+        public string? Result { get; set; }
     }
 }

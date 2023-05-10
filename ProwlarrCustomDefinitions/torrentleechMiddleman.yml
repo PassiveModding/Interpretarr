@@ -7,6 +7,9 @@ type: private
 encoding: UTF-8
 requestDelay: 4.1 # #13796
 links:
+  #########################
+  # EDIT THIS TO YOUR URL #
+  #########################
   - http://localhost:5000/torrentleech/
 
 caps:
@@ -84,6 +87,7 @@ search:
   paths:
     # "newfilter/2" include 0day and music
     # https://www.torrentleech.org/torrents/browse/list/categories/29,2,26,27,32,44,7,34,35/facets/tags:FREELEECH,nonscene/exact/1/query/friends/orderby/added/order/desc
+    # NOTE: This path is specifically for Sports episodes
     - path: "torrents/browse/list/categories/26,32/facets/tags:Sports/query/{{ .Keywords }}/orderby/{{ .Config.sort }}/order/{{ .Config.type }}"
       response:
         type: json

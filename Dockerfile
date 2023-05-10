@@ -19,4 +19,6 @@ RUN dotnet publish "Interpretarr.csproj" -c Release -o /app/publish /p:UseAppHos
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+# Set default port to 5000
+ENV ASPNETCORE_URLS=http://+:5000
 ENTRYPOINT ["dotnet", "Interpretarr.dll"]

@@ -18,20 +18,19 @@ Interpretarr is a middleware that sits between Sonarr/Prowlarr and indexer sites
 - Sonarr accepts the release and queues it on your torrent client
 - The download finishes and Sonarr fails to import due to the files not having the corrent name
 - Interpretarr renames the download on the torrent client to match the name it sent to Prowlarr
-- Sonarr attepts to import the file again and succeeds due to the updated names
+- Sonarr attempts to import the file again and succeeds due to the updated names
+
+![Interpretarr Flow](Media/interpretarr-flow.svg "Interpretarr Flow")
 
 ## Supported Release Formats
 - Formula 1 (2014-Present) 
-	- Format: Formula.1.YEAR.Round.XX.LOCATION.TYPE.RELEASE_INFO
-	- Example: Formula.1.2021.Round.01.Australia.Qualifying.1080p.WEB.h264
-	- Output: Formula.1.S2021E6.Australia.Qualifying.1080p.WEB.h264
 	- Indexer: 1337x / torrentleech
 
 ## Installation
 - Download source code
 - Extract the release to a folder
 - Update .env.template with your environment variables and rename to .env
-- Update and copy the .yml files in ProwlarrCustomDefinitions to /Definitions/Custom/1337xMiddleman.yml in your Prowlarr install
+- Update and copy the .yml files in ProwlarrCustomDefinitions to /Definitions/Custom/ in your Prowlarr install
 - Build and run Interpretarr
 ```
 docker build -t interpretarr .
@@ -41,10 +40,7 @@ docker run -d --name=interpretarr -p 5000:5000 --env-file .env interpretarr
 
 ## TODO
  - [ ] More indexers
- - [ ] Make Flaresolverr optional
- - [ ] Configurable services ie. url, flaresolverr support, categories, priority?, enabled/disabled etc.
+ - [ ] Configurable services ie. url, categories, priority, enabled/disabled etc.
  - [ ] Move more logic to Prowlarr/Cardigann definitions, could be a better way of handling url rewrites
- - [ ] Use reflection to register helpers so they don't need to be defined in Program.cs
  - [ ] Proxy support
- - [ ] More thorough testing capabilities
- - [ ] More thorough testing of SonarrService and how it interacts with qbittorrent
+ - [ ] Tests

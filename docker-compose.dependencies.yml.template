@@ -20,7 +20,6 @@ services:
       - "8080:8080"
       - "9696:9696"
       - "8989:8989"
-      # note internally, interpretarr uses port 80, but we map it to 5000 here so clicking on links in the UI may send you to port 80 instead of 5000
       - "5000:5000"
   qbittorrent:
     image: lscr.io/linuxserver/qbittorrent

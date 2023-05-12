@@ -40,10 +40,10 @@ settings:
     type: checkbox
     label: Search freeleech only
     default: false
-  - name: exclude_scene
-    type: checkbox
-    label: Exclude SCENE torrents from results
-    default: false
+  #- name: exclude_scene
+  #  type: checkbox
+  #  label: Exclude SCENE torrents from results
+  #  default: false
   - name: sort
     type: select
     label: Sort requested from site
@@ -87,8 +87,10 @@ search:
   paths:
     # "newfilter/2" include 0day and music
     # https://www.torrentleech.org/torrents/browse/list/categories/29,2,26,27,32,44,7,34,35/facets/tags:FREELEECH,nonscene/exact/1/query/friends/orderby/added/order/desc
-    # NOTE: This path is specifically for Sports episodes
-    - path: "torrents/browse/list/categories/26,32/facets/tags:Sports/query/{{ .Keywords }}/orderby/{{ .Config.sort }}/order/{{ .Config.type }}"
+    #- path: "torrents/browse/list/categories/26,32/query/{{ .Keywords }}/orderby/{{ .Config.sort }}/order/{{ .Config.type }}"
+    #  response:
+    #    type: json
+    - path: "torrents/browse/list/categories/26,32{{ if .Config.freeleech }}/facets/tags:FREELEECH{{ else }}{{ end }}/query/{{ .Keywords }}/orderby/{{ .Config.sort }}/order/{{ .Config.type }}"
       response:
         type: json
 

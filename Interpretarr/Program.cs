@@ -1,7 +1,6 @@
 using Interpretarr.Clients.QBittorrent;
 using Interpretarr.Clients.Sonarr;
 using Interpretarr.Config;
-using Interpretarr.Helpers;
 using Interpretarr.Model;
 using Interpretarr.Services;
 
@@ -23,8 +22,15 @@ namespace Interpretarr
             builder.Services.AddSingleton<HttpClient>();
 
             builder.Services.AddSingleton<F1DataProvider>();
-            builder.Services.AddSingleton<F1Helper>();
-            builder.Services.AddSingleton<IMiddlemanHelper>(sp => sp.GetRequiredService<F1Helper>());
+            builder.Services.AddSingleton<IndyCarDataProvider>();
+
+            var middlemanHelperTypes = typeof(IMiddlemanHelper).Assembly.GetTypes()
+                .Where(t => t.IsClass && !t.IsAbstract && typeof(IMiddlemanHelper).IsAssignableFrom(t));
+            foreach (var middleman in middlemanHelperTypes)
+            {
+                builder.Services.AddSingleton(middleman);
+                builder.Services.AddSingleton<IMiddlemanHelper>(sp => (IMiddlemanHelper)sp.GetRequiredService(middleman));
+            }
 
             builder.Services.AddSingleton<SonarrService>();
             builder.Services.AddControllers();

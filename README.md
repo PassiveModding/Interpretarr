@@ -25,6 +25,8 @@ Interpretarr is a middleware that sits between Sonarr/Prowlarr and indexer sites
 ## Supported Release Formats
 - Formula 1 (2014-Present) 
 	- Indexer: 1337x / torrentleech
+- NTT IndyCar Series (2022-2023) 
+	- Indexer: torrentleech
 
 ## Installation
 - Download source code

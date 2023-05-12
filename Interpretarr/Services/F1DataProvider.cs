@@ -1,5 +1,3 @@
-// f1data.cs
-
 using System.Text.RegularExpressions;
 using Interpretarr.Clients.Sonarr;
 using Interpretarr.Model;
@@ -34,7 +32,7 @@ namespace Interpretarr.Services
                 // Update every 6 hours
                 if (f1Data == null || DateTime.UtcNow - lastUpdated > TimeSpan.FromHours(6))
                 {            
-                    logger.LogInformation("Updating F1 data");
+                    logger.LogInformation("Updating data");
                     var series = await sonarrClient.GetSeriesAsync(tvdbId);
                     if (series.Length == 0)
                     {
@@ -64,7 +62,7 @@ namespace Interpretarr.Services
 
                     lastUpdated = DateTime.UtcNow;
                     f1Data = new F1Data(episodes, locations, sessions);
-                    logger.LogInformation($"F1 data updated with {locations.Count} locations and {sessions.Count} sessions");
+                    logger.LogInformation($"Data updated with {locations.Count} locations and {sessions.Count} sessions");
                 }
 
                 return f1Data;
